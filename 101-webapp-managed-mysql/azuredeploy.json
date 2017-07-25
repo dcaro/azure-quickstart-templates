@@ -6,7 +6,8 @@
          "type":"string",
          "metadata":{  
             "description":"Name of azure web app"
-         }
+         },
+        "defaultValue": "[concat('sitename',uniqueString(resourceGroup().id))]"
       },
       "administratorLogin":{  
          "type":"string",
