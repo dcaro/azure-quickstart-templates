@@ -82,8 +82,8 @@
    "variables":{  
       "databaseName":"[concat(parameters('siteName'), 'database')]",
       "serverName":"[concat(parameters('siteName'), 'pgserver')]",
-      "hostingPlanName":"[concat(parameters('siteName'), 'serviceplan')]"
-       
+      "hostingPlanName":"[concat(parameters('siteName'), 'serviceplan')]",
+      "siteName": "WebSiteSQL"
    },
    "resources":[  
       {  
@@ -105,7 +105,7 @@
       },
       {  
          "apiVersion":"2017-04-01",
-         "name":"[if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName'))]",
+         "name":"[variables('siteName')]",
          "type":"Microsoft.Web/sites",
          "location":"[resourceGroup().location]",
          "dependsOn":[  
