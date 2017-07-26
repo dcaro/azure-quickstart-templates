@@ -40,6 +40,7 @@
     }
   },
   "variables": {
+    "scenarioPrefix": "lampvm",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
     "OSDiskName": "osdiskforlinuxsimple",
@@ -48,7 +49,7 @@
     "subnetName": "Subnet",
     "subnetPrefix": "10.0.0.0/24",
     "storageAccountType": "Standard_LRS",
-    "storageAccountName": "[concat('lamp-app', uniqueString(resourceGroup().id))]",
+    "storageAccountName": "[concat(variables('scenarioPrefix', uniqueString(resourceGroup().id))]",
     "publicIPAddressName": "myPublicIP",
     "publicIPAddressType": "Dynamic",
     "vmStorageAccountContainerName": "vhds",
