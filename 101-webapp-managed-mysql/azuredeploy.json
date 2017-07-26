@@ -2,15 +2,12 @@
    "$schema":"http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
    "contentVersion":"1.0.0.0",
    "parameters":{ 
-      "conditions": {
-          "type": "bool"
-      },
       "siteName":{  
          "type":"string",
          "metadata":{  
             "description":"Name of azure web app"
          },
-        "defaultValue": "WebApp-ManagedSQL"
+        "defaultValue": ""
       },
       "administratorLogin":{  
          "type":"string",
@@ -85,8 +82,8 @@
    "variables":{  
       "databaseName":"[concat(parameters('siteName'), 'database')]",
       "serverName":"[concat(parameters('siteName'), 'pgserver')]",
-      "hostingPlanName":"[concat(parameters('siteName'), 'serviceplan')]",
-      "uniqueSiteName": "[if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName'))]"
+      "hostingPlanName":"[concat(parameters('siteName'), 'serviceplan')]"
+       
    },
    "resources":[  
       {  
@@ -108,14 +105,14 @@
       },
       {  
          "apiVersion":"2017-04-01",
-         "name":"[variables('siteName')]",
+         "name":"[if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName'))]",
          "type":"Microsoft.Web/sites",
          "location":"[resourceGroup().location]",
          "dependsOn":[  
             "[concat('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]"
          ],
          "properties":{  
-            "name":"[variables('siteName')]",
+            "name":"[if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName'))]",
             "serverFarmId":"[variables('hostingPlanName')]",
             "hostingEnvironment":""
          },
@@ -125,7 +122,7 @@
                "name":"connectionstrings",
                "type":"config",
                "dependsOn":[  
-                  "[concat('Microsoft.Web/sites/', variables('siteName'))]"
+                  "[concat('Microsoft.Web/sites/', if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName')))]"
                ],
                "properties":{  
                   "defaultConnection":{  
