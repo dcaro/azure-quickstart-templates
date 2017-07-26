@@ -122,7 +122,7 @@
                "name":"connectionstrings",
                "type":"config",
                "dependsOn":[  
-                  "[concat('Microsoft.Web/sites/', if(equals(parameters('siteName'),''), uniqueString(resourceGroup().id), parameters('siteName')))]"
+                  "[concat('Microsoft.Web/sites/', [variables('siteName')])]"
                ],
                "properties":{  
                   "defaultConnection":{  
